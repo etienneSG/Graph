@@ -86,30 +86,35 @@ Matrix<T>::Matrix(int iNbRow, int iNbColumn)
   }
 }
 
+
 template <class T>
 Matrix<T>::Matrix(std::string iFile)
 : _NbRow(0),
   _NbColumn(0),
   _aTab(0)
 {
-  /*
-  std::ifstream fichier(nom.c_str(), std::ios::in);
+  std::ifstream fichier(iFile.c_str(), std::ios::in);
   if(fichier)
   {
-    fichier >> ligne >> colonne;
-    tab=new double[ligne*colonne];
-    for(int i=0; i<ligne*colonne; i++)
+    fichier >> _NbRow >> _NbColumn;
+    int SizeOfTab = _NbRow*_NbColumn;
+    if (SizeOfTab)
     {
-      double coef;
-      fichier >> coef;
-      tab[i]=coef;
+      _aTab=new T[SizeOfTab];
+      memset(_aTab, 0, SizeOfTab*sizeof(T));
+      for(int i=0; i<SizeOfTab; i++)
+      {
+        T coef;
+        fichier >> coef;
+        _aTab[i]=coef;
+      }
     }
     fichier.close();  // on ferme le fichier
   }
   else
     std::cerr << "Impossible d'ouvrir le fichier !" << std::endl;
-  */
 }
+
 
 template <class T>
 Matrix<T>::~Matrix()
@@ -119,6 +124,7 @@ Matrix<T>::~Matrix()
   if (_aTab)
     delete [] _aTab; _aTab = 0;
 }
+
 
 template <class T>
 inline int Matrix<T>::GetNbOfRow()
@@ -143,6 +149,7 @@ inline const T& Matrix<T>::operator()(int i, int j)const
 {
   return _aTab[_NbColumn*(i-1)+(j-1)];
 }
+
 
 template <class T>
 void Matrix<T>::Affiche()

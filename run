@@ -1,3 +1,0 @@
-make Clean
-make
-./Bin/MonExec

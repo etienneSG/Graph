@@ -24,3 +24,7 @@ void PrintArguments();
 int RunTest();
 
 
+/** Tests sur les méthodes de la classe Matrix */
+int TestMatrice();
+
+

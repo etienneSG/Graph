@@ -28,24 +28,41 @@ void PrintArguments()
 int RunTest()
 {
   // Test de l'affichage de l'aide
-  cout << "========================================" << endl;
-  cout << " Test de l'affichage de l'aide"           << endl;
-  cout << "========================================" << endl;
+  cout << "#=======================================" << endl;
+  cout << "# Test de l'affichage de l'aide"          << endl;
+  cout << "#=======================================" << endl;
   PrintArguments();
   
   // Test sur la classe matrice
-  cout << "========================================" << endl;
-  cout << " Test sur la classe matrice"              << endl;
-  cout << "========================================" << endl;
-  Matrix<int> M(2, 3);
-  for (int i=1; i<=3; i++)
-  {
-    M(1,i)=i+1;
-  }
-  M(2,3)=10;
-  M.Affiche();
+  cout << "#=======================================" << endl;
+  cout << "# Test sur la classe matrice"             << endl;
+  cout << "#=======================================" << endl;
+  TestMatrice();
   
   return 0;
 }
+
+
+int TestMatrice()
+{
+  cout << "# Création par ligne de code" << endl;
+  Matrix<int> M1(2, 3);
+  for (int i=1; i<=3; i++)
+  {
+    M1(1,i)=i+1;
+  }
+  M1(2,3)=10;
+  M1.Affiche();
+  cout << endl; 
+  
+  cout << "# Création à partir d'un fichier" << endl;
+  Matrix<double> M2("Test/Input/MatriceToRead");
+  M2.Affiche();
+  cout << endl;
+  
+  return 0;
+}
+
+
 
 
