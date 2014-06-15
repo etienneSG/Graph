@@ -1,5 +1,19 @@
+//==============================================================================
+//
+// Lancement du programme
+//
+// Argument -h ou -help pour afficher les paramètres possibles
+// (Modifier la fonction PrintArguments() à chaque nouvel argument ajouté.)
+//
+//==============================================================================
+
+
 /** Lance le programme pour chacun des paramètres */
 void run(int argc, char *argv[]);
+
+
+/** Affiche les arguments possibles de l'excécutable */
+void PrintArguments();
 
 
 /**
