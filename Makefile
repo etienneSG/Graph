@@ -12,7 +12,7 @@ BINDIR=Bin
 CFLAGS=-I Include -g -Wall -pedantic
 # Les différents FrameWorks et bibliothèques pour le linkage
 GLLIBS= -lstdc++
- 
+
 # Où trouver les différents sources *.cpp qu'il faudra compiler
 # pour créer les objets correspondants
 SRCPP= $(wildcard $(SRCDIR)/*.cpp)
@@ -32,11 +32,11 @@ $(LIBDIR)/main.o: main.cpp
 # Création des différents *.o à partir des *.cpp
 $(LIBDIR)/%.o: $(SRCDIR)/%.cpp $(HEADDIR)/%.h
 	$(CPP) -o $@ -c $< $(CFLAGS)
- 
+
 # Nettoyage des objets => Tout sera recompilé !
 clean:
 	rm $(LIBDIR)/*.o
- 
+
 # Nettoyage complet => clean + effacement du l'exécutable
 Clean: clean
 	rm $(BINDIR)/*

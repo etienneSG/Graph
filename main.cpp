@@ -1,8 +1,8 @@
-#include "hello.h"
+#include "run.h"
 
-int main()
+int main(int argc, char *argv[])
 {
-  hello();
+  run(argc, argv);
   return 0;
 }
 
