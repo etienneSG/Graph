@@ -52,12 +52,20 @@ int TestMatrice()
     M1(1,i)=i+1;
   }
   M1(2,3)=10;
-  M1.Affiche();
+  M1.Print();
   cout << endl; 
   
   cout << "# Création à partir d'un fichier" << endl;
   Matrix<double> M2("Test/Input/MatriceToRead");
-  M2.Affiche();
+  M2.Print();
+  cout << endl;
+  
+  cout << "# Redimensionnement de matrice" << endl;
+  M2.ReSize(6,7);
+  M2.Print();
+  cout << endl;
+  M2.ReSize(3,2);
+  M2.Print();
   cout << endl;
   
   return 0;

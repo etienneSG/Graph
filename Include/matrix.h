@@ -12,6 +12,7 @@
 #include <fstream>
 #include <string.h>
 #include <stdio.h>
+#include <assert.h> 
 
 template <class T>
 class Matrix
@@ -23,7 +24,7 @@ public:
 
   /**
    * Constructeur à partir de la taille de la Matrix
-   * @param iNbRow : nombre de lignes de la Matrix
+   * @param iNbRow    : nombre de lignes de la Matrix
    * @param iNbColumn : nombre de colonne de la Matrix
    */
   Matrix(int iNbRow, int iNbColumn);
@@ -33,6 +34,13 @@ public:
 
   /** Destructeur */
   ~Matrix();
+  
+  /**
+   * Redimensionne la matrice en conservant les coefficients.
+   * @param iNbRow    : Nouveau nombre de lignes de la matrice
+   * @param iNbColumn : Nouveau nombre de colonnes de la matrice
+   */
+  void ReSize(int iNbRow, int iNbColumn);
 
   /** Retourne le nombre de lignes de la matrice */
   inline int GetNbOfRow();
@@ -48,8 +56,8 @@ public:
   inline T& operator()(int i, int j);
   inline const T& operator()(int i, int j)const;
 
-  /** Afficahge de la matrice en console */
-  void Affiche();
+  /** Affichage de la matrice en console */
+  void Print();
 
 
 private:
@@ -127,6 +135,34 @@ Matrix<T>::~Matrix()
 
 
 template <class T>
+void Matrix<T>::ReSize(int iNbRow, int iNbColumn)
+{
+  int SizeOfTab = iNbRow*iNbColumn;
+  if (SizeOfTab) {
+    T * aNewTab=new T[SizeOfTab];
+    memset(aNewTab, 0, SizeOfTab*sizeof(T));
+    
+    int minColumn = iNbColumn < _NbColumn ? iNbColumn : _NbColumn;
+    for (int i=1; i<=iNbRow && i<=_NbRow; i++) {
+      memcpy(aNewTab+iNbColumn*(i-1), _aTab+_NbColumn*(i-1), minColumn*sizeof(T));
+    }
+    if (_aTab)
+      delete [] _aTab;
+    _aTab = aNewTab;
+    _NbRow = iNbRow;
+    _NbColumn = iNbColumn;
+  }
+  else
+  {
+    _NbRow = 0;
+    _NbColumn = 0;
+    if (_aTab)
+      delete [] _aTab; _aTab = 0;
+  }
+}
+
+
+template <class T>
 inline int Matrix<T>::GetNbOfRow()
 {
   return _NbRow;
@@ -141,18 +177,20 @@ inline int Matrix<T>::GetNbOfColumn()
 template <class T>
 inline T& Matrix<T>::operator()(int i, int j)
 {
+  assert(0<i && i<=_NbRow && 0<j && j<=_NbColumn);
   return _aTab[_NbColumn*(i-1)+(j-1)];
 }
 
 template <class T>
 inline const T& Matrix<T>::operator()(int i, int j)const
 {
+  assert(0<i && i<=_NbRow && 0<j && j<=_NbColumn);
   return _aTab[_NbColumn*(i-1)+(j-1)];
 }
 
 
 template <class T>
-void Matrix<T>::Affiche()
+void Matrix<T>::Print()
 {
   for(int i=0; i<_NbRow; i++)
   {
