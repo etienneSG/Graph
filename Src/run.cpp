@@ -107,6 +107,8 @@ int TestMatriceP()
   }
   cout << endl; 
   
+  M1.DeleteAll();
+  
   return 0;
 }
 

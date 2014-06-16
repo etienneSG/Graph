@@ -32,7 +32,13 @@ public:
 
   /** Destructeur */
   ~MatrixP();
-  
+
+  /** Met à 0 l'ensemble des indices de la matrice sans effectuer un delete des éléments */
+  void RemoveAll();
+
+  /** Met à 0 l'ensemble des indices de la matrice en effectuant un delete des éléments */
+  void DeleteAll();
+
   /**
    * Redimensionne la matrice en conservant les coefficients.
    * @param iNbRow    : Nouveau nombre de lignes de la matrice
@@ -100,6 +106,29 @@ MatrixP<T>::~MatrixP()
   _NbColumn = 0;
   if (_apTab)
     delete [] _apTab; _apTab = 0;
+}
+
+
+template <class T>
+void MatrixP<T>::RemoveAll()
+{
+  if (_apTab) {
+    memset(_apTab, 0, _NbRow*_NbColumn*sizeof(T*));
+  }
+}
+
+
+template <class T>
+void MatrixP<T>::DeleteAll()
+{
+  if (_apTab) {
+    int SizeOfTab = _NbRow*_NbColumn;
+    for (int i=0; i<SizeOfTab; i++) {
+      if (_apTab[i])
+        delete _apTab[i];
+    }
+    memset(_apTab, 0, SizeOfTab*sizeof(T*));
+  }
 }
 
 
