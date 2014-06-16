@@ -7,7 +7,8 @@
 //
 //==============================================================================
 
-#pragma once
+#ifndef MATRIXP_H
+#define MATRIXP_H
 
 #include <iostream>
 #include <fstream>
@@ -198,4 +199,6 @@ void MatrixP<T>::Print()
   }
 }
 
+
+#endif
 

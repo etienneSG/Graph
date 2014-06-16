@@ -7,13 +7,14 @@
 //
 //==============================================================================
 
-#pragma once
+#ifndef MATRIXV_H
+#define MATRIXV_H
 
 #include <iostream>
 #include <fstream>
 #include <string.h>
 #include <stdio.h>
-#include <assert.h> 
+#include <assert.h>
 
 template <class T>
 class MatrixV
@@ -67,7 +68,6 @@ private:
   T *_aTab;       // Tableau des coefficient de la matrice
 
 };
-
 
 
 //==============================================================================
@@ -201,4 +201,6 @@ void MatrixV<T>::Print()
   }
 }
 
+
+#endif
 
