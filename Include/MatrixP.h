@@ -12,7 +12,6 @@
 
 #include <iostream>
 #include <fstream>
-#include <string.h>
 #include <stdio.h>
 #include <assert.h> 
 
@@ -186,7 +185,6 @@ inline const T*& MatrixP<T>::operator()(int i, int j)const
   assert(0<i && i<=_NbRow && 0<j && j<=_NbColumn);
   return _apTab[_NbColumn*(i-1)+(j-1)];
 }
-
 
 template <class T>
 void MatrixP<T>::Print()

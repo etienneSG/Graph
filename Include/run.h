@@ -8,6 +8,10 @@
 //==============================================================================
 
 
+#ifndef RUN_H
+#define RUN_H
+
+
 /** Lance le programme pour chacun des paramètres */
 void run(int argc, char *argv[]);
 
@@ -30,4 +34,6 @@ int TestMatriceV();
 
 /** Tests sur les méthodes de la classe MatrixP */
 int TestMatriceP();
+
+#endif
 
