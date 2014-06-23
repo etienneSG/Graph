@@ -14,6 +14,19 @@
 class Edge
 {
 public:
+  /** Constructeur par défaut */
+  Edge();
+
+  /**
+   * Constructeur à partir des sommets
+   * @param iVertex1: premier sommet de l'arrête
+   * @param iVertex2: deuxième sommet de l'arrête
+   */
+  Edge(Vertex* iVertex1, Vertex* iVertex2);
+  
+  /** Destructeur */
+  ~Edge();
+  
   /** Retourne le sommet numéro iNb (i = 1 ou 2) */
   inline Vertex * GetVertex(int iNb);
 
