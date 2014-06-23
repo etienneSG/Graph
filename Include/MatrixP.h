@@ -30,6 +30,9 @@ public:
    */
   MatrixP(int iNbRow, int iNbColumn);
 
+  /** Constructeur par copie */
+  MatrixP(MatrixP* iMatrixP);
+  
   /** Destructeur */
   ~MatrixP();
 
@@ -45,6 +48,13 @@ public:
    * @param iNbColumn : Nouveau nombre de colonnes de la matrice
    */
   void ReSize(int iNbRow, int iNbColumn);
+  
+  /**
+   * Supprime une ligne et une colonne de la matrice.
+   * @param iRow    : numéro de la ligne à supprimer
+   * @param iColumn : numéro de la colonne à supprimer
+   */
+  void ExtractMineur(int iRow, int iColumn);
 
   /** Retourne le nombre de lignes de la matrice */
   inline int GetNbOfRow();
@@ -95,6 +105,26 @@ MatrixP<T>::MatrixP(int iNbRow, int iNbColumn)
   if (SizeOfTab) {
     _apTab=new T*[SizeOfTab];
     memset(_apTab, 0, SizeOfTab*sizeof(T*));
+  }
+}
+
+
+template <class T>
+MatrixP<T>::MatrixP(MatrixP* iMatrixP)
+: _NbRow(0),
+  _NbColumn(0),
+  _apTab(0)
+{
+  if (iMatrixP)
+  {
+    _NbRow = iMatrixP->_NbRow;
+    _NbColumn = iMatrixP->_NbColumn;
+    
+    int SizeOfTab = _NbRow*_NbColumn;
+    if (SizeOfTab) {
+      _apTab=new T[SizeOfTab];
+      memcpy(_apTab, iMatrixP->_apTab, SizeOfTab*sizeof(T));
+    }
   }
 }
 
@@ -157,6 +187,26 @@ void MatrixP<T>::ReSize(int iNbRow, int iNbColumn)
     if (_apTab)
       delete [] _apTab; _apTab = 0;
   }
+}
+
+
+template <class T>
+void MatrixP<T>::ExtractMineur(int iRow, int iColumn)
+{
+  if ( !(1<=iRow && iRow<=_NbRow && 1<=iColumn && iColumn<=_NbColumn) )
+    return;
+
+  for (int i=1; i<iRow; i++) {
+    memcpy(_apTab+(_NbColumn-1)*(i-1), _apTab+_NbColumn*(i-1), (iColumn-1)*sizeof(T*));
+    memcpy(_apTab+(_NbColumn-1)*(i-1)+iColumn-1, _apTab+_NbColumn*(i-1)+iColumn, (_NbColumn-iColumn)*sizeof(T*));
+  }
+  for (int i=iRow+1; i<=_NbRow; i++) {
+    memcpy(_apTab+(_NbColumn-1)*(i-2), _apTab+_NbColumn*(i-1), (iColumn-1)*sizeof(T*));
+    memcpy(_apTab+(_NbColumn-1)*(i-2)+iColumn-1, _apTab+_NbColumn*(i-1)+iColumn, (_NbColumn-iColumn)*sizeof(T*));
+  }
+  _NbColumn = _NbColumn - 1;
+  _NbRow = _NbRow - 1;
+  
 }
 
 

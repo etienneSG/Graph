@@ -33,6 +33,9 @@ public:
 
   /** Constructeur à partir d'un fichier texte */
   MatrixV(std::string iFile);
+  
+  /** Constructeur par copie */
+  MatrixV(MatrixV* iMatrixV);
 
   /** Destructeur */
   ~MatrixV();
@@ -44,6 +47,13 @@ public:
    */
   void ReSize(int iNbRow, int iNbColumn);
 
+  /**
+   * Supprime une ligne et une colonne de la matrice.
+   * @param iRow    : numéro de la ligne à supprimer
+   * @param iColumn : numéro de la colonne à supprimer
+   */
+  void ExtractMineur(int iRow, int iColumn);
+  
   /** Retourne le nombre de lignes de la matrice */
   inline int GetNbOfRow();
 
@@ -126,6 +136,26 @@ MatrixV<T>::MatrixV(std::string iFile)
 
 
 template <class T>
+MatrixV<T>::MatrixV(MatrixV* iMatrixV)
+: _NbRow(0),
+  _NbColumn(0),
+  _aTab(0)
+{
+  if (iMatrixV)
+  {
+    _NbRow = iMatrixV->_NbRow;
+    _NbColumn = iMatrixV->_NbColumn;
+    
+    int SizeOfTab = _NbRow*_NbColumn;
+    if (SizeOfTab) {
+      _aTab=new T[SizeOfTab];
+      memcpy(_aTab, iMatrixV->_aTab, SizeOfTab*sizeof(T));
+    }
+  }
+}
+
+
+template <class T>
 MatrixV<T>::~MatrixV()
 {
   _NbRow = 0;
@@ -160,6 +190,26 @@ void MatrixV<T>::ReSize(int iNbRow, int iNbColumn)
     if (_aTab)
       delete [] _aTab; _aTab = 0;
   }
+}
+
+
+template <class T>
+void MatrixV<T>::ExtractMineur(int iRow, int iColumn)
+{
+  if ( !(1<=iRow && iRow<=_NbRow && 1<=iColumn && iColumn<=_NbColumn) )
+    return;
+
+  for (int i=1; i<iRow; i++) {
+    memcpy(_aTab+(_NbColumn-1)*(i-1), _aTab+_NbColumn*(i-1), (iColumn-1)*sizeof(T));
+    memcpy(_aTab+(_NbColumn-1)*(i-1)+iColumn-1, _aTab+_NbColumn*(i-1)+iColumn, (_NbColumn-iColumn)*sizeof(T));
+  }
+  for (int i=iRow+1; i<=_NbRow; i++) {
+    memcpy(_aTab+(_NbColumn-1)*(i-2), _aTab+_NbColumn*(i-1), (iColumn-1)*sizeof(T));
+    memcpy(_aTab+(_NbColumn-1)*(i-2)+iColumn-1, _aTab+_NbColumn*(i-1)+iColumn, (_NbColumn-iColumn)*sizeof(T));
+  }
+  _NbColumn = _NbColumn - 1;
+  _NbRow = _NbRow - 1;
+  
 }
 
 
