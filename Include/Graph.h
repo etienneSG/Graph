@@ -57,6 +57,12 @@ public:
    */
   virtual void AddEdge(int iVertex1, int iVertex2);
   
+  /**
+   * Ajoute des sommets au graphe
+   * @param iNbToAdd : nombre de sommets à ajouter
+   */
+  void AddVertex(int iNbToAdd = 1);
+  
 protected:
   std::vector<Vertex> _vVertex; // vecteur des sommets du graphe
   MatrixP<Edge> _mEdge;         // Matrices des arrêtes du graphe

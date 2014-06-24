@@ -2,8 +2,10 @@
 #include "Constantes.h"
 #include "MatrixV.h"
 #include "MatrixP.h"
+#include "UndirectedGraph.h"
 #include <iostream>
 #include <math.h>
+
 using namespace std;
 
 void run(int argc, char *argv[])
@@ -31,7 +33,6 @@ void PrintArguments()
 int RunTest()
 {
   int ToReturn = 0;
-  int TestResult = 0;
 
   // Test de l'affichage de l'aide
   cout << "#=======================================" << endl;
@@ -45,16 +46,20 @@ int RunTest()
   cout << "#=======================================" << endl;
   cout << "# Test sur la classe MatrixV"             << endl;
   cout << "#=======================================" << endl;
-  ToReturn=TestMatriceV();
+  ToReturn+=TestMatriceV();
  
   
-  // Test sur la classe MatrixV
+  // Test sur la classe MatrixP
   cout << "#=======================================" << endl;
   cout << "# Test sur la classe MatrixP"             << endl;
   cout << "#=======================================" << endl;
-  TestResult=TestMatriceP();
-  ToReturn+=TestResult;
+  ToReturn=TestMatriceP();
 
+  // Test sur la classe Graph
+  cout << "#=======================================" << endl;
+  cout << "# Test sur la classe Graph"             << endl;
+  cout << "#=======================================" << endl;
+  ToReturn+=TestGraph();
   
   cout << "#=======================================" << endl;
   if (ToReturn)
@@ -176,4 +181,25 @@ int TestMatriceP()
   return ToReturn;
 }
 
+
+int TestGraph()
+{
+  int ToReturn = 0;
+  
+  UndirectedGraph myGraph;
+  myGraph.AddVertex(4);
+  myGraph.AddEdge(1,2);
+  myGraph.AddEdge(2,3);
+  myGraph.AddEdge(3,4);
+  myGraph.AddEdge(4,1);
+  myGraph.AddEdge(1,3);
+  myGraph.AddVertex();
+  myGraph.AddEdge(1,5);
+  
+  cout << "# Test sur la classe Graph : " << ToReturn << " KO" << endl;
+  cout << "#=======================================" << endl;
+  cout << endl;
+  
+  return ToReturn;
+}
 

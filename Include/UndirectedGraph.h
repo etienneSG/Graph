@@ -12,6 +12,7 @@
 
 class UndirectedGraph : public Graph
 {
+public:
   /** Constructeur par défaut */
   UndirectedGraph();
   

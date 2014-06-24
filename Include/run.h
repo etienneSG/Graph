@@ -35,5 +35,10 @@ int TestMatriceV();
 /** Tests sur les méthodes de la classe MatrixP */
 int TestMatriceP();
 
+
+/** Test sur les graphes */
+int TestGraph();
+
+
 #endif
 
