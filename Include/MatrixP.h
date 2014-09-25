@@ -12,6 +12,7 @@
 
 #include <iostream>
 #include <fstream>
+#include <string.h>
 #include <stdio.h>
 #include <assert.h> 
 
@@ -157,7 +158,7 @@ void MatrixP<T>::DeleteAll()
       if (_apTab[i])
         delete _apTab[i];
     }
-    memset(_apTab, 0, SizeOfTab*sizeof(T*));
+    //memset(_apTab, 0, SizeOfTab*sizeof(T*));
   }
 }
 

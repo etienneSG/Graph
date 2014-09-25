@@ -199,9 +199,14 @@ void MatrixV<T>::ExtractMineur(int iRow, int iColumn)
   if ( !(1<=iRow && iRow<=_NbRow && 1<=iColumn && iColumn<=_NbColumn) )
     return;
 
-  for (int i=1; i<iRow; i++) {
-    memcpy(_aTab+(_NbColumn-1)*(i-1), _aTab+_NbColumn*(i-1), (iColumn-1)*sizeof(T));
-    memcpy(_aTab+(_NbColumn-1)*(i-1)+iColumn-1, _aTab+_NbColumn*(i-1)+iColumn, (_NbColumn-iColumn)*sizeof(T));
+  // Pour éviter une erreur du au recouvrement lors de la copie
+  for(int j=iColumn; j<_NbColumn; j++)
+    memcpy(_aTab+j-1, _aTab+j, sizeof(T));
+  for (int i=2; i<iRow; i++) {
+    for(int j=0; j<iColumn; j++)
+      memcpy(_aTab+(_NbColumn-1)*(i-1)+j, _aTab+_NbColumn*(i-1)+j, sizeof(T));
+    for(int j=iColumn; j<_NbColumn; j++)
+      memcpy(_aTab+(_NbColumn-1)*(i-1)+j-1, _aTab+_NbColumn*(i-1)+j, sizeof(T));
   }
   for (int i=iRow+1; i<=_NbRow; i++) {
     memcpy(_aTab+(_NbColumn-1)*(i-2), _aTab+_NbColumn*(i-1), (iColumn-1)*sizeof(T));
